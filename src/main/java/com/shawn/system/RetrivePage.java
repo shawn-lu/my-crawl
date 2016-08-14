@@ -53,10 +53,11 @@ public class RetrivePage {
 
 		HttpResponse httpResponse = httpClient.execute(postMethod);
 		int statusCode = httpResponse.getStatusLine().getStatusCode();
-		System.out.println(statusCode);
+//		System.out.println(statusCode);
 		if (statusCode == HttpStatus.SC_OK) {
 			input = httpResponse.getEntity().getContent();
 			String filename = path.substring(path.lastIndexOf('/') + 1);
+	        System.out.println("output path:"+filename);
 			output = new FileOutputStream(filename);
 
 			int tempByte = -1;

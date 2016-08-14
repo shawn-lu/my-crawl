@@ -37,7 +37,7 @@ public class DownLoadFile {
 	/**
 	 * 根据url和网页类型生成需要保存的网页的文件名，去除URL中的非文件名字符
 	 */
-	public String getFilenameByUrl(String url, String contentType) {
+	public static String getFilenameByUrl(String url, String contentType) {
 		url = url.substring(7);
 		if ("html".equals(contentType)) {
 			url = url.replaceAll("[\\?/:*|<>\"]", "_") + ".html";
@@ -51,10 +51,15 @@ public class DownLoadFile {
 	/**
 	 * 保存网页字节数组到本地文件，filepath为要保存的文件的相对路径
 	 */
-	private void saveToLocal(byte[] data, String filepath) {
+	private static void saveToLocal(byte[] data, String filepath) {
 		try {
-			DataOutputStream out = new DataOutputStream(
-					new FileOutputStream(new File("D://huaxia//crawl-app001//path//" + filepath)));
+		    String projectPath = System.getProperty("user.dir");
+		    File file = new File(projectPath + File.separator + "path");
+		    if(!file.exists()){
+		        file.mkdir();
+		    }
+            DataOutputStream out = new DataOutputStream(new FileOutputStream(new File(
+                    file.getAbsolutePath() + File.separator + filepath)));
 			for (int i = 0; i <= data.length - 1; i++) {
 				out.write(data[i]);
 			}
@@ -67,7 +72,7 @@ public class DownLoadFile {
 	}
 
 	// 下载网页
-	public String downloadFile(String url) {
+	public static String downloadFile(String url) {
 		String filepath = null;
 		try {
 			HttpClient httpClient = HttpClients.createDefault();

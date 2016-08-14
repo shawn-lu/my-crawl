@@ -99,7 +99,6 @@ public class HtmlParserTool {
 	public static void main(String[] args) {
 		String url = "http://zjex.jsedu.sh.cn/index/";
 		LinkFilter filter= new LinkFilter(){
-			@Override
 			public boolean accept(String url) {
 				if (url.startsWith("http://zjex.jsedu.sh.cn")) {
 					return true;

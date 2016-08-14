@@ -23,6 +23,7 @@ import org.htmlparser.util.ParserException;
  * @see
  */
 public class MyCrawler {
+    //初始化根节点（可以有多个）
 	private void initCrawlerWithSeeds(String[] seeds) {
 		for(String seed:seeds){
 			LinkQueue.addUnVisitedUrl(seed);
@@ -34,7 +35,6 @@ public class MyCrawler {
 		
 		while(!LinkQueue.unVisitedUrlIsEmpty() && LinkQueue.getVisitedUrlNum()<=500){
 			LinkFilter filter= new LinkFilter(){
-				@Override
 				public boolean accept(String url) {
 					if (url.contains("jsedu.sh.cn")) {
 						return true;
@@ -43,6 +43,7 @@ public class MyCrawler {
 					}
 				}
 			};
+			//待访问的url出队列
 			String visitUrl = (String)LinkQueue.getUnVisitedUrl().deQueue();
 			DownLoadFile downloadFile = new DownLoadFile();
 			//下载页面
@@ -81,5 +82,6 @@ public class MyCrawler {
 		MyCrawler crawler = new MyCrawler();
 		crawler.crawling(new String[]{"http://zjex.jsedu.sh.cn/index/"});
 		System.out.println("end cost =" + ((System.currentTimeMillis()-startTime)/1000));
+		//cost 20 minutes
 	}
 }
